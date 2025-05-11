@@ -1,0 +1,38 @@
+.joystick-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.joystick {
+  width: 200px;
+  height: 200px;
+  background: #f0f0f0;
+  border-radius: 50%;
+  position: relative;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.joystick-knob {
+  width: 60px;
+  height: 60px;
+  background: #2196F3;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  cursor: grab;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.joystick-knob:active {
+  cursor: grabbing;
+}
+
+.direction-indicator {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #666;
+} 

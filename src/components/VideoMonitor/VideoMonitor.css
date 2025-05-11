@@ -1,0 +1,77 @@
+.video-monitor {
+  padding: 1rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.video-controls {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.stream-input {
+  flex: 1;
+}
+
+.stream-input input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.ai-control {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ai-control label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.video-container {
+  position: relative;
+  width: 100%;
+  background: #000;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.video-js {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16/9;
+}
+
+.detection-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.error-message {
+  color: #dc3545;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+} 

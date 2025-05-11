@@ -1,0 +1,138 @@
+.app {
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  padding: 1rem;
+}
+
+.main-interface {
+  max-width: 1600px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.header {
+  padding: 1rem 2rem;
+  background: #2a5298;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.connection-status {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.login-form {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.login-form input {
+  padding: 0.5rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.login-form button,
+.status-connected button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  background: white;
+  color: #2a5298;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.login-form button:hover,
+.status-connected button:hover {
+  background: #f0f0f0;
+}
+
+.status-connected {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.interface-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 1rem;
+  padding: 1rem;
+  height: calc(100vh - 100px);
+}
+
+.video-section,
+.map-section {
+  height: 100%;
+  min-height: 0;
+}
+
+.control-section {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.control-group {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+}
+
+@media (max-width: 1200px) {
+  .interface-grid {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+
+  .video-section,
+  .map-section {
+    height: 400px;
+  }
+
+  .control-section {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .login-form {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .login-form input {
+    width: 100%;
+  }
+
+  .status-connected {
+    flex-direction: column;
+  }
+} 

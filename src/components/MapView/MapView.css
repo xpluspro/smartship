@@ -1,0 +1,80 @@
+.map-view {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  position: relative;
+}
+
+.map-container {
+  flex: 1;
+  min-height: 400px;
+  width: 100%;
+}
+
+.map-controls {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 100;
+}
+
+.clear-track-button {
+  background: #ff4d4f;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.clear-track-button:hover {
+  background: #ff7875;
+}
+
+.position-info {
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.9);
+  border-top: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+}
+
+.position-info p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.error-message {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(220, 53, 69, 0.9);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  z-index: 1000;
+}
+
+/* 高德地图控件样式 */
+:global(.amap-control) {
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+:global(.amap-control-button) {
+  padding: 8px;
+  cursor: pointer;
+}
+
+:global(.amap-control-button:hover) {
+  background: #f0f0f0;
+} 

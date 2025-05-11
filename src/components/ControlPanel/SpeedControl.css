@@ -1,0 +1,43 @@
+.speed-control {
+  padding: 1rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.speed-control h3 {
+  margin: 0 0 1rem 0;
+  text-align: center;
+  color: #333;
+}
+
+.speed-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+
+.speed-button {
+  padding: 0.75rem;
+  border: none;
+  border-radius: 4px;
+  background: #f0f0f0;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.speed-button:hover {
+  background: #e0e0e0;
+}
+
+.speed-button.active {
+  background: #2196F3;
+  color: white;
+}
+
+.current-speed {
+  margin-top: 1rem;
+  text-align: center;
+  color: #666;
+  font-size: 0.9rem;
+} 
