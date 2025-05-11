@@ -3,28 +3,36 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main  # 或者你的主分支名称
+      - main  # 触发部署的主分支（可根据实际情况修改）
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    # 关键权限设置：授予写入仓库的权限（解决 403 权限问题）
+    permissions:
+      contents: write  # 必需！允许向仓库写入内容（创建/更新分支）
+    
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - name: Checkout Code
+        uses: actions/checkout@v4  # 使用最新版 checkout 动作（v4 比 v3 更稳定）
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: 18  # 指定 Node.js 版本（与项目一致）
 
       - name: Install Dependencies
-        run: npm install
+        run: npm ci  # 使用 npm ci 代替 npm install（更干净的依赖安装）
 
-      - name: Build
-        run: npm run build
+      - name: Build Project
+        run: npm run build  # 假设构建输出到 dist 目录（与你配置的 folder: dist 一致）
 
-      - name: Deploy
+      - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: dist
-          branch: gh-pages
+          folder: dist  # 构建输出目录（需与你的项目构建配置一致）
+          branch: gh-pages  # 目标分支（自动创建，无需提前存在）
+          clean: true  # 清理目标分支中不存在的文件（可选，根据需求）
+          # 以下为可选配置（根据需求启用）：
+          # token: ${{ secrets.PAT_TOKEN }}  # 如需跨仓库部署，使用 PAT 令牌（非必需时可移除，依赖 permissions 字段）
+          # commit-message: "Deploy from ${{ github.ref_name }}"  # 自定义提交信息
