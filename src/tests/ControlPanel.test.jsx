@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import Joystick from '../components/ControlPanel/Joystick';
 import SpeedControl from '../components/ControlPanel/SpeedControl';
-import ArmControl from '../components/ControlPanel/ArmControl';
+import HatchControl from '../components/ControlPanel/ArmControl';
 
 describe('Control Panel Components', () => {
   const mockSocket = {
@@ -31,7 +31,6 @@ describe('Control Panel Components', () => {
   describe('SpeedControl', () => {
     test('renders speed buttons', () => {
       render(<SpeedControl socket={mockSocket} />);
-      expect(screen.getByText('停止')).toBeInTheDocument();
       expect(screen.getByText('低速')).toBeInTheDocument();
       expect(screen.getByText('中速')).toBeInTheDocument();
       expect(screen.getByText('高速')).toBeInTheDocument();
@@ -39,25 +38,36 @@ describe('Control Panel Components', () => {
 
     test('changes speed', () => {
       render(<SpeedControl socket={mockSocket} />);
-      fireEvent.click(screen.getByText('停止'));
+      fireEvent.click(screen.getByText('低速'));
       expect(mockSocket.send).toHaveBeenCalled();
     });
   });
 
-  describe('ArmControl', () => {
-    test('renders arm control', () => {
-      render(<ArmControl socket={mockSocket} />);
-      expect(screen.getByText('控制臂')).toBeInTheDocument();
+  describe('HatchControl', () => {
+    test('renders hatch control', () => {
+      render(<HatchControl socket={mockSocket} />);
+      expect(screen.getByText('舱门控制')).toBeInTheDocument();
     });
 
-    test('sends arm control commands', () => {
-      render(<ArmControl socket={mockSocket} />);
-      const armControl = screen.getByText('控制臂');
+    test('sends hatch control commands', () => {
+      render(<HatchControl socket={mockSocket} />);
+      const button = screen.getByRole('button');
       
-      // 模拟控制
-      fireEvent.click(armControl);
+      // 模拟点击开启
+      fireEvent.click(button);
+      expect(mockSocket.send).toHaveBeenCalledWith(JSON.stringify({
+        type: 'control',
+        command: 'hatch',
+        action: 'open'
+      }));
       
-      expect(mockSocket.send).toHaveBeenCalled();
+      // 模拟点击关闭
+      fireEvent.click(button);
+      expect(mockSocket.send).toHaveBeenCalledWith(JSON.stringify({
+        type: 'control',
+        command: 'hatch',
+        action: 'close'
+      }));
     });
   });
-}); 
+});

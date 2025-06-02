@@ -1,42 +1,28 @@
-import React, { useEffect, useRef, useState } from 'react';
-import videojs from 'video.js';
-import 'video.js/dist/video-js.css';
+import React, { useRef, useState } from 'react';
 import './VideoMonitor.css';
 
 const VideoMonitor = ({ socket }) => {
-  const videoRef = useRef(null);
-  const playerRef = useRef(null);
-  const [streamUrl, setStreamUrl] = useState('');
+  const iframeRef = useRef(null); // 引用 iframe 元素
+  const [streamUrl, setStreamUrl] = useState('http://192.168.137.178:8080/video_feed'); // 替换为实际 IP
   const [error, setError] = useState('');
 
-  // 初始化视频播放器
-  useEffect(() => {
-    if (!playerRef.current) {
-      const videoElement = videoRef.current;
-      if (!videoElement) return;
-
-      playerRef.current = videojs(videoElement, {
-        controls: true,
-        fluid: true,
-        responsive: true,
-        autoplay: true,
-        sources: [{
-          src: streamUrl,
-          type: 'application/x-mpegURL'
-        }]
-      });
+  // 连接按钮点击事件
+  const handleConnectClick = () => {
+    if (!streamUrl) {
+      setError('请输入有效的视频流 URL');
+      return;
     }
+    // 更新 iframe 的 src，触发重新加载
+    if (iframeRef.current) {
+      iframeRef.current.src = streamUrl;
+      setError(''); // 清除之前的错误
+    }
+  };
 
-    return () => {
-      if (playerRef.current) {
-        playerRef.current.dispose();
-        playerRef.current = null;
-      }
-    };
-  }, [streamUrl]);
-
-  const handleStreamUrlChange = (e) => {
-    setStreamUrl(e.target.value);
+  // 监听 iframe 加载错误
+  const handleIframeError = (e) => {
+    setError('视频流加载失败，请检查 URL 或网络连接');
+    console.error('Iframe 错误:', e);
   };
 
   return (
@@ -46,19 +32,23 @@ const VideoMonitor = ({ socket }) => {
           <input
             type="text"
             value={streamUrl}
-            onChange={handleStreamUrlChange}
-            placeholder="输入视频流URL"
+            onChange={(e) => setStreamUrl(e.target.value)}
+            placeholder="输入视频流 URL（如 http://192.168.1.100:8080/video_feed）"
           />
         </div>
+        <button className="connect-button" onClick={handleConnectClick}>连接</button>
       </div>
 
       <div className="video-container">
-        <div data-vjs-player>
-          <video
-            ref={videoRef}
-            className="video-js vjs-big-play-centered"
-          />
-        </div>
+        <iframe
+          ref={iframeRef}
+          src={streamUrl}
+          frameBorder="0" // 移除边框
+          width="108%" // 自适应宽度
+          height="400px" // 设置固定高度（可根据需求调整）
+          onError={handleIframeError} // 错误处理
+          title="视频监控"
+        />
       </div>
 
       {error && <div className="error-message">{error}</div>}
@@ -66,4 +56,4 @@ const VideoMonitor = ({ socket }) => {
   );
 };
 
-export default VideoMonitor; 
+export default VideoMonitor;

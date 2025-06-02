@@ -26,18 +26,10 @@ const MapView = ({ socket }) => {
         viewMode: '3D'
       });
 
-      // 创建船图标
-      const shipIcon = new window.AMap.Icon({
-        size: new window.AMap.Size(32, 32),
-        image: '/ship-icon.png',
-        imageSize: new window.AMap.Size(32, 32)
-      });
-
-      // 创建标记
+      // 创建标记 - 使用默认样式
       const marker = new window.AMap.Marker({
-        icon: shipIcon,
         position: [0, 0],
-        offset: new window.AMap.Pixel(-16, -16),
+        offset: new window.AMap.Pixel(-8, -8),
         angle: 0, // 初始角度
         autoRotation: true // 自动旋转
       });
